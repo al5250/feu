@@ -5,6 +5,7 @@ from dpnssm.nssm import nssm_log_likelihood
 from dpnssm.sb import infer_dp
 
 import argparse
+import os.path
 
 parser = argparse.ArgumentParser(
     description="Simulation of clustering neural data with DPnSSM"
@@ -81,6 +82,9 @@ obs_all = torch.stack(obs_all)
 
 print("Class counts: ", class_counts)
 
+# Create output folder
+if not os.path.exists('outputs'):
+    os.makedirs('outputs')
 torch.save((obs_all.cpu(), class_counts.cpu()), f"outputs/sim{SEED}_true.p")
 
 print("Simulated data")
